@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="style/style.css">
+
 
     <body>
         <div class="container">
@@ -32,7 +32,7 @@
 
             <div >
                 <h1 >SEATS</h1>
-                <iframe  src='seats.php' width='1200' height='800'></iframe>
+                <iframe  src='elections_seats.php' width='1200' height='800'></iframe>
             </div>
         </div>
 
