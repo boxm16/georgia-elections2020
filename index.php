@@ -17,7 +17,7 @@ $db_connection = $DataBaseConnection->getConnection();
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-    
+
     <body>
         <div class="container">
             <h1>VOTE FOR FAVORITE PARTY</h1>
@@ -33,16 +33,16 @@ $db_connection = $DataBaseConnection->getConnection();
                             echo '<div style ="font-size:24px;" class="table-responsive"><table class="table table-bordered table-striped table-hover">';
                             echo '<thead>'
                             . '<tr>'
-                            . '<td>Party Number</td>'
                             . '<td>Party Logo</td>'
+                            . '<td>Party Number</td>'
                             . '<td>Party Name</td>'
                             . '<td> VOTE</td>'
                             . '</tr>'
                             . '</thead>';
                             while ($row = $result->fetch_object()) {
                                 echo '<tr>'
-                                . '<td>' . $row->party_number . '</td>'
                                 . '<td style="background-color:' . $row->party_color . '"><img src="party_logos/' . $row->party_logo_name . '" widht="50" height="50"></td>'
+                                . '<td>' . $row->party_number . '</td>'
                                 . '<td>' . $row->party_name . '</td>'
                                 . '<td><div class="form-check">
                                          <input class="form-check-input" type="radio" name="partyId" id="' . $row->party_number . '" value="' . $row->party_number . '" onclick="select_party(this)">
