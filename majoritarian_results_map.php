@@ -713,8 +713,11 @@
 
 
         </div>
-        <script>
 
+        <script>
+<?php $majoritarian_results = new Majoritarian_Results() ?>
+<?php $districts_results = $majoritarian_results->getDistricts_results(); ?>
+<?php $election_division = $majoritarian_results->getElection_division(); ?>
             var election_counties =<?php echo json_encode($election_division); ?>;
             var districts =<?php echo json_encode($districts_results); ?>;
             var district = districts[4];
@@ -795,7 +798,7 @@
                     var candidates = district.districtCandidates;
                     if (candidates != null) {
                         for (candidate of candidates) {
-                            displayBodyText += "<tr><td style=\"width:40px\">" + candidate.supporting_party.party_number + "</td><td><img src=\"party_logos/" + candidate.supporting_party.party_logo_name + "\" style=\"width:40px\"></td><td><span style=\"font-weight:bold\" >" + candidate.first_name + " " + candidate.last_name + "</span><br><span class=\"small\">" + candidate.supporting_party.party_name + "</span></td><td><span style=\"font-weight:bold\" >"  + candidate.percent + "%</span><br><span class=\"small\">"+candidate.votes+" ხმა</span></td></tr>";
+                            displayBodyText += "<tr><td style=\"width:40px\">" + candidate.supporting_party.party_number + "</td><td><img src=\"party_logos/" + candidate.supporting_party.party_logo_name + "\" style=\"width:40px\"></td><td><span style=\"font-weight:bold\" >" + candidate.first_name + " " + candidate.last_name + "</span><br><span class=\"small\">" + candidate.supporting_party.party_name + "</span></td><td><span style=\"font-weight:bold\" >" + candidate.percent + "%</span><br><span class=\"small\">" + candidate.votes + " ხმა</span></td></tr>";
                         }
                     }
                     /* for (c of candidates) {

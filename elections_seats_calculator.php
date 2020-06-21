@@ -4,7 +4,7 @@ require_once 'elections_seat_creator.php';
 require_once 'Dao/DataBaseConnection.php';
 require_once 'Model/Party.php';
 require_once 'elections_majoritarian.php';
-
+require_once 'Controllers/majoritarians_results.php';
 class elections_seats_calculator {
 
 //prosoxi, functions change field variables
@@ -21,7 +21,15 @@ class elections_seats_calculator {
 
     function __construct() {
 
-        $this->majoritarianMandates = array(0, 0, 0, 6, 0, 41, 0, 5, 41, 0, 5, 0, 2, 41, 0, 10, 0, 41, 41, 0, 41, 41, 0, 41, 41, 41, 0, 41, 0, 41);
+        $this->majoritarianMandates = array();
+        $majoritarian_results = new Majoritarian_Results();
+        $district_results = $majoritarian_results->getDistricts_results();
+        for ($x = 1; $x < 31; $x++) {
+            $district = $district_results[$x];
+            $winner = $district->getWinner();
+            array_push($this->majoritarianMandates, $winner);
+        }
+
 
         $this->getDatabaseConnection();
         $this->calculateTotalVotes();

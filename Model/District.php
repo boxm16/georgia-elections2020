@@ -6,11 +6,12 @@ class District implements JsonSerializable {
     private $districtFullName;
     private $message;
     private $totalVotes;
-    private $hasWinner;
+    private $winner;
     private $districtCandidates;
     private $restCandidatesPercent;
 
     public function __construct() {
+        $this->winner = 0;
         $this->totalVotes = 0;
         $this->message = "ამ შედეგებით გამარჯვებული ვერ ვლინდება, საჭიროა მეორე ტური";
     }
@@ -21,7 +22,7 @@ class District implements JsonSerializable {
             'districtFullName' => $this->districtFullName,
             'message' => $this->message,
             'totalVotes' => $this->totalVotes,
-            'hasWinner' => $this->hasWinner,
+            'winner' => $this->winner,
             'districtCandidates' => $this->districtCandidates,
             'restCandidatesPercent' => $this->restCandidatesPercent
         );
@@ -59,12 +60,12 @@ class District implements JsonSerializable {
         return $this->totalVotes;
     }
 
-    public function getHasWinner() {
-        return $this->hasWinner;
+    public function getWinner() {
+        return $this->winner;
     }
 
-    public function setHasWinner($hasWinner) {
-        $this->hasWinner = $hasWinner;
+    public function setWinner($winner) {
+        $this->winner = $winner;
     }
 
     public function getMessage() {
@@ -81,10 +82,12 @@ class District implements JsonSerializable {
             foreach ($this->districtCandidates as $candidate) {
                 // echo $candidate->getLast_name() . "<br>";
                 $percent = ((100 * $candidate->getVotes()) / $totalVotes);
-                $percent= round($percent,2);
+                $percent = round($percent, 2);
                 $candidate->setPercent($percent);
-               if ($percent > 50) {
+                if ($percent > 50) {
                     $this->message = "ამ შედეგებით გამარჯვებული ვლინდება პირველივე ტურში";
+                    $supporting_party = $candidate->getSupporting_party();
+                    $this->winner = $supporting_party->getParty_number();
                 }
             }
         }
