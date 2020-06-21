@@ -14,7 +14,7 @@ and open the template in the editor.
         require_once 'elections_seat_creator.php';
         require_once 'elections_seats_calculator.php';
         require_once 'Model/Party.php';
-        require_once 'elections_majoritarian.php';
+     
 
         $seats_creator = new elections_seat_creator();
         $seats_location = $seats_creator->getSeatsLocation();

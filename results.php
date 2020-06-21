@@ -16,26 +16,22 @@
 
 
     <body>
-        <div class="container">
+    
             <h1>პროპორციული შედეგები</h1>
             <hr>
-            <div class="row">
+            <div style="text-align: center"> 
 
-                <div class="row"> 
-
-                    <img src='proportional_results.php' width="800" height="400" style="border-style:solid;border-color:black;border-width:1px;">
-                </div>
-
-                <br>
-
+                <img src='Controllers/proportional_results.php' width="800" height="400" style="border-style:solid;border-color:black;border-width:1px;">
             </div>
-
-            <div >
+            <div style="text-align: center">
+                <h1 >მაჟორიტარული შედეგები </h1>
+                <iframe  src='majoritarian_results_map.php' width='1400' height='800'></iframe>
+            </div>
+            <div style="text-align: center">
                 <h1 >SEATS</h1>
-                <iframe  src='elections_seats.php' width='1200' height='800'></iframe>
+                <iframe  src='elections_seats.php' width='1400' height='800'></iframe>
             </div>
-        </div>
-
+   
 
         <script>
             function select_party(node) {

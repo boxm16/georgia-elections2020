@@ -1,6 +1,6 @@
 <?php
 
-class Party {
+class Party implements JsonSerializable {
 
     private $party_name;
     private $party_number;
@@ -12,7 +12,19 @@ class Party {
     private $ghost_mandates;
     private $majoritarian_mandates = 0;
 
-   
+    public function jsonSerialize() {
+        return array(
+            'party_name' => $this->party_name,
+            'party_number' => $this->party_number,
+            'party_logo_name' => $this->party_logo_name,
+            'party_color' => $this->party_color,
+            'party_color_HEX' => $this->party_color_HEX,
+            'votes' => $this->votes,
+            'party_mandates' => $this->party_mandates,
+            'ghost_mandates' => $this->ghost_mandates,
+            'majoritarian_mandates' => $this->majoritarian_mandates
+        );
+    }
 
     public function setParty_name($party_name) {
         $this->party_name = $party_name;
@@ -36,7 +48,6 @@ class Party {
 
     public function setParty_color($party_color) {
         $this->party_color = $this->hex2rgb($party_color);
-        
     }
 
     private function hex2rgb($hex) {
@@ -114,7 +125,7 @@ class Party {
 
     public function getResizedLogo() {
         $logo;
-        $file = 'party_logos/' . $this->party_logo_name;
+        $file = '../party_logos/' . $this->party_logo_name;
 
         $info = getimagesize($file);
         $mime = $info['mime'];
@@ -198,5 +209,6 @@ class Party {
         }
         return $final_mandates;
     }
+
 
 }

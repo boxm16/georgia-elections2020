@@ -1,7 +1,7 @@
 <?php
 
-require_once 'Dao/DataBaseConnection.php';
-require_once 'Model/Party.php';
+require_once '../Dao/DataBaseConnection.php';
+require_once '../Model/Party.php';
 $DataBaseConnection = new DataBaseConnection();
 $db_connection = $DataBaseConnection->getConnection();
 

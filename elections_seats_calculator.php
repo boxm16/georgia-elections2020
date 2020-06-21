@@ -3,6 +3,7 @@
 require_once 'elections_seat_creator.php';
 require_once 'Dao/DataBaseConnection.php';
 require_once 'Model/Party.php';
+require_once 'elections_majoritarian.php';
 
 class elections_seats_calculator {
 
@@ -20,7 +21,7 @@ class elections_seats_calculator {
 
     function __construct() {
 
-        $this->majoritarianMandates = array(41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41, 41);
+        $this->majoritarianMandates = array(0, 0, 0, 6, 0, 41, 0, 5, 41, 0, 5, 0, 2, 41, 0, 10, 0, 41, 41, 0, 41, 41, 0, 41, 41, 41, 0, 41, 0, 41);
 
         $this->getDatabaseConnection();
         $this->calculateTotalVotes();
@@ -53,7 +54,7 @@ class elections_seats_calculator {
             $party_number = $row->party_number;
             $party_color = $row->party_color;
             $votes = $row->votes;
-            $party=new Party();
+            $party = new Party();
             $party->setParty_logo_name($party_logo_name);
             $party->setParty_number($party_number);
             $party->setParty_name($party_name);
@@ -160,22 +161,32 @@ class elections_seats_calculator {
     public function getMajoritarians() {
         $majoritarians = array();
         foreach ($this->majoritarianMandates as $majoritarianNumber) {
-            $supportingParty = $this->all_parties[$majoritarianNumber];
-            $logo_name = $supportingParty->getParty_name();
-            $color = $supportingParty->getParty_color_HEX();
+            if ($majoritarianNumber > 0) {
+                $supportingParty = $this->all_parties[$majoritarianNumber];
+                $logo_name = $supportingParty->getParty_name();
+                $color = $supportingParty->getParty_color_HEX();
 
-            $majoritarian = new Majoritarian($majoritarianNumber, $logo_name, $color);
-            array_push($majoritarians, $majoritarian);
+                $majoritarian = new Majoritarian($majoritarianNumber, $logo_name, $color);
+                array_push($majoritarians, $majoritarian);
+            } else {
+                $supportingParty = new Party();
+                $logo_name = "0.png";
+                $color = "black";
+
+                $majoritarian = new Majoritarian($majoritarianNumber, $logo_name, $color);
+                array_push($majoritarians, $majoritarian);
+            }
         }
-
         return $majoritarians;
     }
 
     public function addMajoritarianMandatesToParty() {
 
         foreach ($this->majoritarianMandates as $majoritarianMandate) {
-            $party = $this->qualified_parties[$majoritarianMandate];
-            $party->setMajoritarian_mandates($party->getMajoritarian_mandates() + 1);
+            if ($majoritarianMandate > 0) {
+                $party = $this->qualified_parties[$majoritarianMandate];
+                $party->setMajoritarian_mandates($party->getMajoritarian_mandates() + 1);
+            }
         }
     }
 

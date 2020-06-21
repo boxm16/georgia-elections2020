@@ -11,7 +11,7 @@
  *
  * @author Michail Sitmalidis
  */
-class Candidate {
+class Candidate implements JsonSerializable {
 
     private $id;
     private $first_name;
@@ -20,6 +20,23 @@ class Candidate {
     private $percent;
     private $district;
     private $supporting_party;
+
+    public function __construct() {
+        $this->votes=0;
+        $this->percent = 0;
+    }
+
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'votes' => $this->votes,
+            'percent' => $this->percent,
+            'district' => $this->district,
+            'supporting_party' => $this->supporting_party
+        );
+    }
 
     public function getId() {
         return $this->id;
