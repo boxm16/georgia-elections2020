@@ -130,12 +130,16 @@ class Majoritarian_Results {
                     $candidates = array();
                     array_push($candidates, $candidate);
                     $district->setDistrictCandidates($candidates);
+                    $districtFullName = $this->election_division[$districtId];
+                    $district->setDistrictFullName($districtFullName);
                     $this->districts_results[$districtId] = $district;
                 } else {
                     $district = $this->districts_results[$districtId];
                     $candidates = $district->getDistrictCandidates();
                     array_push($candidates, $candidate);
                     $district->setDistrictCandidates($candidates);
+                    $districtFullName = $this->election_division[$districtId];
+                    $district->setDistrictFullName($districtFullName);
                     $this->districts_results[$districtId] = $district;
                 }
             }
@@ -146,10 +150,14 @@ class Majoritarian_Results {
 
         $district = new District();
         $district->setMessage("ოკუპაციის გამო ამ ტერიტორიაზე არჩევნები არ ტარდება");
+        $districtFullName = $this->election_division[32];
+        $district->setDistrictFullName($districtFullName);
         $this->districts_results[32] = $district;
 
         $district = new District();
         $district->setMessage("ოკუპაციის გამო ამ ტერიტორიაზე არჩევნები არ ტარდება");
+        $districtFullName = $this->election_division[33];
+        $district->setDistrictFullName($districtFullName);
         $this->districts_results[33] = $district;
 
         for ($x = 1; $x < 31; $x++) {

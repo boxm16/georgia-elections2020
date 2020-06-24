@@ -5,7 +5,7 @@ require_once '../Model/Party.php';
 $DataBaseConnection = new DataBaseConnection();
 $db_connection = $DataBaseConnection->getConnection();
 
-$image_length = 800;
+$image_length = 1400;
 $image_heigth = 400;
 
 $total_votes = 0;
@@ -56,7 +56,13 @@ $candidate_block_width = $image_length / $total_parties;
 $canditate_block_start_point = 0;
 $canditate_block_end_point = $canditate_block_start_point + $candidate_block_width;
 $main_size = 12;
+
+
+//$font = '../Fonts/arial.ttf';
 $font = 'C:\WINDOWS\Fonts\arial.ttf';
+
+
+
 for ($x = 0; $x < count($parties); $x++) {
     $party = $parties[$x];
 

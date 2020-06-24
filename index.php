@@ -2,6 +2,23 @@
 require_once 'Dao/DataBaseConnection.php';
 $DataBaseConnection = new DataBaseConnection();
 $db_connection = $DataBaseConnection->getConnection();
+$time = date("Y/m/d-h:i:s");
+if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+    $ip_address = $_SERVER['HTTP_CLIENT_IP'];
+}
+//whether ip is from proxy
+elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+    $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
+}
+//whether ip is from remote address
+else {
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+}
+
+$query = "insert ignore request_ips (ip, time_stamp) values ('".$ip_address."','".$time."')";
+if (!($result = $db_connection->query($query))) {
+    echo 'OOPS, DataBase Connection is down, try again later';
+}
 ?>
 
 <!DOCTYPE html>
@@ -116,6 +133,8 @@ $db_connection = $DataBaseConnection->getConnection();
             </div>
             <hr>
             <a href="majoritarian_voting_map.php">Click here to vote for you favorite majoritarian candidate</a>
+            <hr>
+            <a href="results.php">See Results</a>
             <hr>
         </div>
 

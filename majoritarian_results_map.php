@@ -682,7 +682,7 @@
 
                         </div>
                         <form action="majoritarian_results_district.php" method="POST">
-                            <input type="number" name="districtId_voting" id="districtId" hidden="">
+                            <input type="number" name="districtId_results" id="districtId" hidden="">
                             <input id="submitButton" hidden type="submit" data-toggle="modal" data-target="#loadingModal">
                         </form>
                     </div> 
@@ -720,7 +720,6 @@
 <?php $election_division = $majoritarian_results->getElection_division(); ?>
             var election_counties =<?php echo json_encode($election_division); ?>;
             var districts =<?php echo json_encode($districts_results); ?>;
-            var district = districts[4];
             var display = document.getElementById("display");
             var pointedElement; //this i need to find element that is pointed by mouse pointer
             function br(element) {
@@ -797,21 +796,18 @@
                     displayBodyText += "<table class=\"table table-sm \"><thead></thead><tbody>";
                     var candidates = district.districtCandidates;
                     if (candidates != null) {
+                        var stopPoint = 0;
                         for (candidate of candidates) {
+                            stopPoint++;
                             displayBodyText += "<tr><td style=\"width:40px\">" + candidate.supporting_party.party_number + "</td><td><img src=\"party_logos/" + candidate.supporting_party.party_logo_name + "\" style=\"width:40px\"></td><td><span style=\"font-weight:bold\" >" + candidate.first_name + " " + candidate.last_name + "</span><br><span class=\"small\">" + candidate.supporting_party.party_name + "</span></td><td><span style=\"font-weight:bold\" >" + candidate.percent + "%</span><br><span class=\"small\">" + candidate.votes + " ხმა</span></td></tr>";
+                            if (stopPoint > 1) {
+                                break;
+                            }
+                        }
+                        if (districtId < 31) {//31,32,33 --tbilisi, abkhazia, s.ossetia
+                            displayBodyText += "<tr><td></td><td><td><span class=\"small\">" + district.bottomMessage + "</span></td><td><span >" + district.restCandidatesPercent + "%</span></td></tr>";
                         }
                     }
-                    /* for (c of candidates) {
-                     if (c.length > 1) {
-                     //displayBodyText+="<tr><td>"+candidate[0]+"</td><td><table table-sm><tr style=\"font-size:16px; font-weight:bold\"><td>"+candidate[1]+"</td></tr><tr style=\"font-size=6px\"><td >"+candidate[2]+"</td></tr></table></td></tr>";
-                     displayBodyText += "<tr><td style=\"width:40px\">" + c.first_name + "</td><td><img src=\"party_logos/" + c.party_logo_name + "\" style=\"width:40px\"></td><td><span style=\"font-weight:bold\" >" + cc_first_name + "</span><br><span class=\"small\">" + c.last_name + "</span></td></tr>";
-                     } else {
-                     
-                     
-                     }
-                     }*/
-
-
                     displayBodyText += "</tbody > </table>"
                     displayBody.innerHTML = displayBodyText;
                 }

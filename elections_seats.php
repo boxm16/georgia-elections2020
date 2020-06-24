@@ -18,14 +18,14 @@ and open the template in the editor.
 
         $seats_creator = new elections_seat_creator();
         $seats_location = $seats_creator->getSeatsLocation();
-         echo 'Total seats' . count($seats_location);
-          echo '<br>----------';
-          echo '<br>';
+        // echo 'Total seats' . count($seats_location);
+        //  echo '<br>----------';
+        //  echo '<br>';
         
         $seats_calculator = new elections_seats_calculator();
         $parties = $seats_calculator->getAllParties();
        
-          echo $seats_calculator->getTotalVotesCount() . ' Total Votes';
+        /*  echo $seats_calculator->getTotalVotesCount() . ' Total Votes';
           echo '<br>-----------<br>';
           foreach ($parties as $party) {
           echo $party->getVotes() . ' ' . $party->getParty_name();
@@ -36,12 +36,12 @@ and open the template in the editor.
           echo '<br>-----------<br>';
           echo 'Left Mandates-' . $seats_calculator->getLeftMandatesCount();
           echo '<br>-----------<br>';
-         
+         */
         $qualified_parties = $seats_calculator->getQualifiedParties();
-        foreach ($qualified_parties as $party) {
-          echo $party->getParty_mandates() . '->' . $party->getGhostMandates() . '->' . $party->getFinal_mandates(). ' '. $party->getParty_name();
-          echo '<br>';
-          } 
+       // foreach ($qualified_parties as $party) {
+       //   echo $party->getParty_mandates() . '->' . $party->getGhostMandates() . '->' . $party->getFinal_mandates(). ' '. $party->getParty_name();
+       //   echo '<br>';
+       //   } 
         $display_width = 1200;
         $display_height = 800;
         $rectancle_width = $display_width - 1;
@@ -75,7 +75,7 @@ and open the template in the editor.
 
 //proportional mandates
                 echo ' <rect x="1" y="1" width="' . $rectancle_width . '" height="100" fill="white" stroke-width="1" stroke="black" />';
-                echo '<text nmae="text" font-weight="bold" x="500" y="15">პროპორციული მანდატები</text>';
+                echo '<text nmae="text" font-weight="bold" x="300" y="15">პროპორციული მანდატები.  მთავეობის შესაქმელად დააწკაპუნე პარტიის ლოგოზე</text>';
 
                 $party_space = $rectancle_width / count($qualified_parties);
                 $party_space_center = $party_space / 2;
@@ -237,6 +237,8 @@ and open the template in the editor.
                     . '</circle>';
                     $majoritarian_seats_location_index++;
                 }
+                   echo '<text name="text" font-weight="bold" x="400" y="740">მთავეობის შესაქმელად დააწკაპუნე პარტიის ლოგოზე</text>';
+
                 echo '</svg>';
                 ?>
         <script>

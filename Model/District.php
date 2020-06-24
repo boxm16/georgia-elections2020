@@ -9,8 +9,12 @@ class District implements JsonSerializable {
     private $winner;
     private $districtCandidates;
     private $restCandidatesPercent;
+    private $bottomMessage;
 
     public function __construct() {
+
+        $this->restCandidatesPercent = 0;
+        $this->districtCandidates = array();
         $this->winner = 0;
         $this->totalVotes = 0;
         $this->message = "ამ შედეგებით გამარჯვებული ვერ ვლინდება, საჭიროა მეორე ტური";
@@ -24,7 +28,8 @@ class District implements JsonSerializable {
             'totalVotes' => $this->totalVotes,
             'winner' => $this->winner,
             'districtCandidates' => $this->districtCandidates,
-            'restCandidatesPercent' => $this->restCandidatesPercent
+            'restCandidatesPercent' => $this->restCandidatesPercent,
+            'bottomMessage' => $this->bottomMessage
         );
     }
 
@@ -79,8 +84,10 @@ class District implements JsonSerializable {
     public function calculateDistrict() {
         $totalVotes = $this->getTotalVotes();
         if ($totalVotes > 0) {
+            $topTwoPacer = 0;
+            $topTwoPercents = 0;
             foreach ($this->districtCandidates as $candidate) {
-                // echo $candidate->getLast_name() . "<br>";
+
                 $percent = ((100 * $candidate->getVotes()) / $totalVotes);
                 $percent = round($percent, 2);
                 $candidate->setPercent($percent);
@@ -89,6 +96,11 @@ class District implements JsonSerializable {
                     $supporting_party = $candidate->getSupporting_party();
                     $this->winner = $supporting_party->getParty_number();
                 }
+                $topTwoPacer++;
+                if ($topTwoPacer > 2) {
+                    $this->restCandidatesPercent += $percent;
+                }
+                $this->bottomMessage = "დანარჩენი კანდიდატები";
             }
         }
     }

@@ -5,6 +5,7 @@ require_once 'Dao/DataBaseConnection.php';
 require_once 'Model/Party.php';
 require_once 'elections_majoritarian.php';
 require_once 'Controllers/majoritarians_results.php';
+
 class elections_seats_calculator {
 
 //prosoxi, functions change field variables
@@ -192,8 +193,10 @@ class elections_seats_calculator {
 
         foreach ($this->majoritarianMandates as $majoritarianMandate) {
             if ($majoritarianMandate > 0) {
-                $party = $this->qualified_parties[$majoritarianMandate];
-                $party->setMajoritarian_mandates($party->getMajoritarian_mandates() + 1);
+                if (array_key_exists($majoritarianMandate, $this->qualified_parties)) {
+                    $party = $this->qualified_parties[$majoritarianMandate];
+                    $party->setMajoritarian_mandates($party->getMajoritarian_mandates() + 1);
+                }
             }
         }
     }
